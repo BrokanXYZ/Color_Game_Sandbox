@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -12,12 +12,11 @@ export default function Game() {
 
     const rows: number = 20;
     const columns: number = 30;
-    let gameGrid: Cell[][] = [];
+    const tickLength: number = 2000;
 
-    let [tickNumber, setTickNumber] = useState(1);
-    const gameTick: number = 1000;
+    const initGameGridCells = (): Cell[][] => {
 
-    const initGameGridCells = () => {
+        let newGameGrid: Cell[][] = [];
 
         for(let i: number = 0; i<rows; i++){
             let row = [];
@@ -30,61 +29,90 @@ export default function Game() {
                 );
             }
 
-            gameGrid.push(row);
+            newGameGrid.push(row);
         }
 
-        gameGrid[0][0].color = new Color(255, 0, 0);
-        gameGrid[0][columns-1].color = new Color(255, 255, 0);
-        gameGrid[rows-1][0].color = new Color(0, 255, 0);
-        gameGrid[rows-1][columns-1].color = new Color(0, 0, 255);
+        newGameGrid[0][0].color = new Color(255, 0, 0);
+        newGameGrid[0][columns-1].color = new Color(255, 255, 0);
+        newGameGrid[rows-1][0].color = new Color(0, 255, 0);
+        newGameGrid[rows-1][columns-1].color = new Color(0, 0, 255);
 
-        gameGrid[rows/2-1][columns/2-1].color = new Color(0, 0, 0);
+        newGameGrid[rows/2-1][columns/2-1].color = new Color(0, 0, 0);
 
+        return newGameGrid;
     }
 
-    const spreadColor = (cell: Cell, i: number, j: number) => {
+    const [gameGrid, setGameGrid] = useState<Cell[][]>(initGameGridCells());
 
-        //let colorTransform: Color = new Color(0, 0, 0);
+    const spreadColor = (cell: Cell, i: number, j: number): Color => {
+
+        let newColor: Color;
 
         if(cell.color.g > 0){
-            return new Color(cell.color.r, cell.color.g - 3, cell.color.b);
+            newColor = new Color(cell.color.r, cell.color.g - 1, cell.color.b);
         }
         else{
-            return new Color(cell.color.r, cell.color.g, cell.color.b);
+            newColor = new Color(cell.color.r, cell.color.g, cell.color.b);
         }
-    }
 
-    const gameLoop = (gameTick: number) => {
+        return newColor;
+    };
 
-        //let newGameGrid: Cell[][] = ;
+    const getClonedGameGrid = (): Cell[][] => {
 
-        //console.groupCollapsed("Tick - " + tickNumber);
+        let clonedGameGrid: Cell[][] = [];
 
+        gameGrid.forEach(row => {
+            let clonedRow: Cell[] = [];
+
+            row.forEach(cell => {
+                clonedRow.push(Object.assign({},cell));
+            });
+
+            clonedGameGrid.push(clonedRow);
+        });
+
+        return clonedGameGrid;
+    };
+
+    const gameLoop = (gameGrid: Cell[][]) => {
+
+        let newGameGrid: Cell[][] = getClonedGameGrid();
+
+        console.groupCollapsed("ColorChanges");
         gameGrid.forEach(
             (row, i) => {
                 row.forEach(
                     (cell, j) => {
-                        gameGrid[i][j].color = spreadColor(cell, i, j);
+                        
+                        console.log(newGameGrid[i][j].color.g + " => " + spreadColor(cell, i, j).g);
+                        newGameGrid[i][j].color = spreadColor(cell, i, j);
+                        console.log(newGameGrid[i][j].color.g);
+                        
                     }
                 );
             }
         );
+        console.groupEnd();
 
-        //console.log(gameGrid);
+        console.log("gameGrid[0][1].color.g", gameGrid[0][1].color.g);
+        console.log("newGameGrid[0][1].color.g", newGameGrid[0][1].color.g);
 
-        //console.groupEnd();
+        setGameGrid(newGameGrid);
+    };
 
-        //setTickNumber(tickNumber++);
+    useEffect(() => {
 
-        setTimeout(gameLoop, gameTick, gameTick);
-    }
+        const gameLoopInterval = setInterval(() => {
+            const test = gameGrid;
+            gameLoop(test);
+        }, tickLength);
 
-    
-
-    initGameGridCells();
-    gameLoop(gameTick);
+        return () => clearInterval(gameLoopInterval);
+      }, []);    
 
 
+    console.log("gameGrid[0][1].color.g", gameGrid[0][1].color.g)
 
   return (
    <Grid container>
