@@ -79,21 +79,15 @@ export default function Game() {
 
         let newGameGrid: Cell[][] = getClonedGameGrid();
 
-        console.groupCollapsed("ColorChanges");
         gameGrid.forEach(
             (row, i) => {
                 row.forEach(
                     (cell, j) => {
-                        
-                        console.log(newGameGrid[i][j].color.g + " => " + spreadColor(cell, i, j).g);
                         newGameGrid[i][j].color = spreadColor(cell, i, j);
-                        console.log(newGameGrid[i][j].color.g);
-                        
                     }
                 );
             }
         );
-        console.groupEnd();
 
         console.log("gameGrid[0][1].color.g", gameGrid[0][1].color.g);
         console.log("newGameGrid[0][1].color.g", newGameGrid[0][1].color.g);
