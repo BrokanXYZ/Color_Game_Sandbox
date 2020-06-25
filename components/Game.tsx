@@ -5,6 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import Cell from '../models/Cell';
 import Color from '../models/Color';
 
+import useInterval from '../hooks/UseInterval';
+
 import GameCell from './GameCell';
 
 
@@ -12,7 +14,7 @@ export default function Game() {
 
     const rows: number = 20;
     const columns: number = 30;
-    const tickLength: number = 2000;
+    const tickLength: number = 500;
 
     const initGameGridCells = (): Cell[][] => {
 
@@ -44,20 +46,6 @@ export default function Game() {
 
     const [gameGrid, setGameGrid] = useState<Cell[][]>(initGameGridCells());
 
-    const spreadColor = (cell: Cell, i: number, j: number): Color => {
-
-        let newColor: Color;
-
-        if(cell.color.g > 0){
-            newColor = new Color(cell.color.r, cell.color.g - 1, cell.color.b);
-        }
-        else{
-            newColor = new Color(cell.color.r, cell.color.g, cell.color.b);
-        }
-
-        return newColor;
-    };
-
     const getClonedGameGrid = (): Cell[][] => {
 
         let clonedGameGrid: Cell[][] = [];
@@ -75,9 +63,23 @@ export default function Game() {
         return clonedGameGrid;
     };
 
-    const gameLoop = (gameGrid: Cell[][]) => {
+    const spreadColor = (cell: Cell, i: number, j: number): Color => {
 
-        let newGameGrid: Cell[][] = getClonedGameGrid();
+        let newColor: Color;
+
+        if(cell.color.g > 0){
+            newColor = new Color(cell.color.r, cell.color.g - 1, cell.color.b);
+        }
+        else{
+            newColor = new Color(cell.color.r, cell.color.g, cell.color.b);
+        }
+
+        return newColor;
+    };
+
+    const gameLoop = () => {
+
+        const newGameGrid: Cell[][] = getClonedGameGrid();
 
         gameGrid.forEach(
             (row, i) => {
@@ -89,24 +91,13 @@ export default function Game() {
             }
         );
 
-        console.log("gameGrid[0][1].color.g", gameGrid[0][1].color.g);
-        console.log("newGameGrid[0][1].color.g", newGameGrid[0][1].color.g);
-
         setGameGrid(newGameGrid);
-    };
+    };    
+    
+    useInterval(() => {
+        gameLoop();
+    }, tickLength);
 
-    useEffect(() => {
-
-        const gameLoopInterval = setInterval(() => {
-            const test = gameGrid;
-            gameLoop(test);
-        }, tickLength);
-
-        return () => clearInterval(gameLoopInterval);
-      }, []);    
-
-
-    console.log("gameGrid[0][1].color.g", gameGrid[0][1].color.g)
 
   return (
    <Grid container>
