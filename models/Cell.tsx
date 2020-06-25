@@ -6,4 +6,8 @@ export default class Cell {
     constructor(color: Color) {
         this.color = color;
     }
+
+    clone(): Cell{
+        return new Cell(this.color);
+    }
 }

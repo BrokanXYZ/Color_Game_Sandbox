@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 
 import Cell from '../models/Cell';
 import Color from '../models/Color';
+import GameGrid from '../models/GameGrid';
 
 import useInterval from '../hooks/UseInterval';
 
@@ -16,52 +17,11 @@ export default function Game() {
     const columns: number = 30;
     const tickLength: number = 500;
 
-    const initGameGridCells = (): Cell[][] => {
-
-        let newGameGrid: Cell[][] = [];
-
-        for(let i: number = 0; i<rows; i++){
-            let row = [];
-
-            for(let j: number = 0; j<columns; j++){
-                row.push(
-                    {
-                        color: new Color(255, 255, 255)
-                    }
-                );
-            }
-
-            newGameGrid.push(row);
-        }
-
-        newGameGrid[0][0].color = new Color(255, 0, 0);
-        newGameGrid[0][columns-1].color = new Color(255, 255, 0);
-        newGameGrid[rows-1][0].color = new Color(0, 255, 0);
-        newGameGrid[rows-1][columns-1].color = new Color(0, 0, 255);
-
-        newGameGrid[rows/2-1][columns/2-1].color = new Color(0, 0, 0);
-
-        return newGameGrid;
-    }
-
-    const [gameGrid, setGameGrid] = useState<Cell[][]>(initGameGridCells());
-
-    const getClonedGameGrid = (): Cell[][] => {
-
-        let clonedGameGrid: Cell[][] = [];
-
-        gameGrid.forEach(row => {
-            let clonedRow: Cell[] = [];
-
-            row.forEach(cell => {
-                clonedRow.push(Object.assign({},cell));
-            });
-
-            clonedGameGrid.push(clonedRow);
-        });
-
-        return clonedGameGrid;
-    };
+    const [gameGrid, setGameGrid] = useState<GameGrid>( () => {
+        let initialGameGrid = new GameGrid(rows, columns);
+        initialGameGrid.setStartingCells();
+        return initialGameGrid;
+    });
 
     const spreadColor = (cell: Cell, i: number, j: number): Color => {
 
@@ -79,13 +39,13 @@ export default function Game() {
 
     const gameLoop = () => {
 
-        const newGameGrid: Cell[][] = getClonedGameGrid();
+        const newGameGrid: GameGrid = gameGrid.clone();
 
-        gameGrid.forEach(
+        gameGrid.cells.forEach(
             (row, i) => {
                 row.forEach(
                     (cell, j) => {
-                        newGameGrid[i][j].color = spreadColor(cell, i, j);
+                        newGameGrid.cells[i][j].color = spreadColor(cell, i, j);
                     }
                 );
             }
@@ -98,10 +58,9 @@ export default function Game() {
         gameLoop();
     }, tickLength);
 
-
   return (
    <Grid container>
-       {gameGrid.map(
+       {gameGrid.cells.map(
                 (row, index) => {
                     return(
                         <Grid container item xs={12} key={"row-"+index}>
