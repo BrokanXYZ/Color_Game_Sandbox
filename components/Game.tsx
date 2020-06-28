@@ -59,15 +59,15 @@ export default function Game() {
     }, tickLength);
 
   return (
-   <Grid container>
+   <Grid container style={{marginTop: "20px"}}>
        {gameGrid.cells.map(
-                (row, index) => {
+                (row, i) => {
                     return(
-                        <Grid container item xs={12} key={"row-"+index}>
+                        <Grid container item xs={12} key={"row-"+i}>
                             {row.map(
-                                (cell, index) => {
+                                (cell, j) => {
                                     return(
-                                        <GameCell cell={cell} key={"cell-"+index}/>
+                                        <GameCell cell={cell} row={i} column={j} key={"cell-"+j}/>
                                     )
                                 }
                             )}

@@ -11,14 +11,18 @@ const useStyles = makeStyles({
   });
 
 export default function GameCell({
-    cell
+    cell,
+    row,
+    column
   }: {
-    cell: Cell
+    cell: Cell,
+    row: number,
+    column: number
   }) {
 
     const classes = useStyles(cell);
     
-  return (
-        <Grid item className={classes.cell} />
-  )
+    return (
+          <Grid item className={classes.cell} onClick={()=>{console.log("cell (" + row + ", " + column + ")")}}/>
+    )
 }
