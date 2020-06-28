@@ -10,8 +10,6 @@ import Game from '../components/Game';
 import CustomAppBar from '../components/CustomAppBar';
 
 
-const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
