@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
@@ -11,24 +12,7 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import Color from '../models/Color';
 
 
-const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  },
   colorPreview: (previewColor: Color) => ({
     width: '100%',
     height: '75px',
@@ -49,6 +33,11 @@ export default function PreviewColor() {
 
   return (
     <List>
+      <ListItem>
+        <Typography>
+          Color Tool
+        </Typography>
+      </ListItem>
       <ListItem>
         <div className={classes.colorPreview}/>
       </ListItem>

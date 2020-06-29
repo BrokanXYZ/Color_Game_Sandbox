@@ -2,20 +2,16 @@ import React, {useState} from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import TextField from '@material-ui/core/TextField';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-import Color from '../models/Color';
 import PreviewColor from './PreviewColor';
+import GameOptions from './GameOptions';
 
 
 const drawerWidth = 240;
@@ -64,18 +60,19 @@ export default function CustomDrawer({
       </div>
 
       <Divider />
-
       <PreviewColor />
-
+      <Divider />
+      <GameOptions />
       <Divider />
 
       <List>
+        <ListItem>
+          <Button variant="contained">
+            Reset Grid
+          </Button>
+        </ListItem>
       </List>
-
-      <Divider />
-
-      <List>
-      </List>
+      
     </Drawer>
   );
 }

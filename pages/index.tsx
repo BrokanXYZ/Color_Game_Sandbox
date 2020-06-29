@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import Layout from '../components/Layout';
 import Game from '../components/Game';
 import CustomAppBar from '../components/CustomAppBar';
+import StartStopFab from '../components/StartStopFab';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -56,6 +57,7 @@ export default function Index() {
         })}
       >
         <Game />
+        <StartStopFab />
       </main>
     </Layout>
   )
