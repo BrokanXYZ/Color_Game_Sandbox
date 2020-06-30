@@ -3,12 +3,14 @@ import { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 
-import clsx from 'clsx';
-
 import Layout from '../components/Layout';
 import Game from '../components/Game';
 import CustomAppBar from '../components/CustomAppBar';
 import StartStopFab from '../components/StartStopFab';
+
+import Color from '../models/Color';
+
+import { SetPreviewColorContext } from '../contexts/SetPreviewColorContext';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,43 +24,50 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
 }));
 
 export default function Index() {
   const classes = useStyles();
+
   const [open, setOpen] = useState(false);
 
-    const handleDrawerOpen = () => {
-      setOpen(true);
+  const [setPreviewColor, initSetPreviewColor] = useState<(newPreviewColor: Color)=>void>(
+    () => (newPreviewColor: Color) => {}
+  );
+
+  const SetPreviewColorContextValue = 
+    { 
+      setPreviewColor: setPreviewColor, 
+      initSetPreviewColor: initSetPreviewColor
     };
-  
-    const handleDrawerClose = () => {
-      setOpen(false);
-    };
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Layout>
+      
       <CssBaseline />
-      <CustomAppBar 
-        open={open}
-        handleDrawerOpen={handleDrawerOpen}
-        handleDrawerClose={handleDrawerClose}
-      />
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <Game />
-        <StartStopFab />
-      </main>
+
+      <SetPreviewColorContext.Provider value={SetPreviewColorContextValue}>
+        <CustomAppBar 
+          open={open}
+          handleDrawerOpen={handleDrawerOpen}
+          handleDrawerClose={handleDrawerClose}
+        />
+        <main
+          className={classes.content}
+        >
+          <Game />
+          <StartStopFab />
+        </main>
+      </SetPreviewColorContext.Provider>
+
     </Layout>
   )
 }

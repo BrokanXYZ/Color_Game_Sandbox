@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
@@ -67,7 +68,7 @@ export default function Game() {
                             {row.map(
                                 (cell, j) => {
                                     return(
-                                        <GameCell cell={cell} row={i} column={j} key={"cell-"+j}/>
+                                        <GameCell cell={cell} key={"cell-"+j}/>
                                     )
                                 }
                             )}

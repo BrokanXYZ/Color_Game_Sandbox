@@ -1,6 +1,10 @@
 import Grid from '@material-ui/core/Grid';
-import Cell from '../models/Cell';
 import { makeStyles } from '@material-ui/core/styles';
+
+import Cell from '../models/Cell';
+
+import { SetPreviewColorContext } from '../contexts/SetPreviewColorContext';
+
 
 const useStyles = makeStyles({
     cell: (cell: Cell) => ({
@@ -10,19 +14,19 @@ const useStyles = makeStyles({
     }),
   });
 
-export default function GameCell({
-    cell,
-    row,
-    column
-  }: {
-    cell: Cell,
-    row: number,
-    column: number
-  }) {
-
+export default function GameCell( { cell } : { cell: Cell } )
+{
     const classes = useStyles(cell);
     
     return (
-          <Grid item className={classes.cell} onClick={()=>{console.log("cell (" + row + ", " + column + ")")}}/>
+          <SetPreviewColorContext.Consumer>
+          {({setPreviewColor, initSetPreviewColor}) => 
+            {   
+              return(
+                <Grid item className={classes.cell} onClick={()=>setPreviewColor(cell.color)}/>
+              )
+            }
+          }
+          </SetPreviewColorContext.Consumer>
     )
 }

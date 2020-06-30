@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -10,6 +10,8 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 import Color from '../models/Color';
+
+import { SetPreviewColorContext } from '../contexts/SetPreviewColorContext';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,13 +25,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PreviewColor() {
     
-  const [previewColor, setPreviewColor] = useState<Color>(new Color(255,255,255));
+  const [previewColor, setPreviewColorTrue] = useState<Color>(new Color(255,255,255));
   const [pointerActionType, setPointerActionType] = useState<string>("get");
   const classes = useStyles(previewColor);
 
+  const { setPreviewColor, initSetPreviewColor } = useContext(SetPreviewColorContext);
+
   const handleGetSetChange = (event: any, newType: string) => {
-    setPointerActionType(newType);
+    if(newType != null){
+      setPointerActionType(newType);
+    }
   };
+
+  useEffect(() => {
+    initSetPreviewColor(() => setPreviewColorTrue);
+  }, []);
 
   return (
     <List>
@@ -50,7 +60,7 @@ export default function PreviewColor() {
           }}
           variant="outlined"
           value={previewColor.r}
-          onChange={(event)=>{setPreviewColor(new Color(parseInt(event.target.value), previewColor.g, previewColor.b))}}
+          onChange={(event)=>{setPreviewColorTrue(new Color(parseInt(event.target.value), previewColor.g, previewColor.b))}}
         />
       </ListItem>
       <ListItem>
@@ -62,7 +72,7 @@ export default function PreviewColor() {
           }}
           variant="outlined"
           value={previewColor.g}
-          onChange={(event)=>{setPreviewColor(new Color(previewColor.r, parseInt(event.target.value), previewColor.b))}}
+          onChange={(event)=>{setPreviewColorTrue(new Color(previewColor.r, parseInt(event.target.value), previewColor.b))}}
         />
       </ListItem>
       <ListItem>
@@ -74,15 +84,15 @@ export default function PreviewColor() {
           }}
           variant="outlined"
           value={previewColor.b}
-          onChange={(event)=>{setPreviewColor(new Color(previewColor.r, previewColor.g, parseInt(event.target.value)))}}
+          onChange={(event)=>{setPreviewColorTrue(new Color(previewColor.r, previewColor.g, parseInt(event.target.value)))}}
         />
       </ListItem>
       <ListItem>
         <ToggleButtonGroup
-        value={pointerActionType}
-        exclusive
-        onChange={handleGetSetChange}
-        aria-label="text alignment"
+          value={pointerActionType}
+          exclusive
+          onChange={handleGetSetChange}
+          aria-label="text alignment"
         >
           <ToggleButton value="get" aria-label="left aligned">
             Get
