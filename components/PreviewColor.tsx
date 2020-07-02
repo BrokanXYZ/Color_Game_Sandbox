@@ -11,7 +11,7 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 import Color from '../models/Color';
 
-import { SetPreviewColorContext } from '../contexts/SetPreviewColorContext';
+import { UpdatePreviewColorContext } from '../contexts/UpdatePreviewColorContext';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PreviewColor() {
     
-  const [previewColor, setPreviewColorTrue] = useState<Color>(new Color(255,255,255));
+  const [previewColor, setPreviewColor] = useState<Color>(new Color(255,255,255));
   const [pointerActionType, setPointerActionType] = useState<string>("get");
   const classes = useStyles(previewColor);
 
-  const { setPreviewColor, initSetPreviewColor } = useContext(SetPreviewColorContext);
+  const { updatePreviewColor, setUpdatePreviewColor } = useContext(UpdatePreviewColorContext);
 
   const handleGetSetChange = (event: any, newType: string) => {
     if(newType != null){
@@ -38,7 +38,7 @@ export default function PreviewColor() {
   };
 
   useEffect(() => {
-    initSetPreviewColor(() => setPreviewColorTrue);
+    setUpdatePreviewColor(() => setPreviewColor);
   }, []);
 
   return (
@@ -60,7 +60,7 @@ export default function PreviewColor() {
           }}
           variant="outlined"
           value={previewColor.r}
-          onChange={(event)=>{setPreviewColorTrue(new Color(parseInt(event.target.value), previewColor.g, previewColor.b))}}
+          onChange={(event)=>{setPreviewColor(new Color(parseInt(event.target.value), previewColor.g, previewColor.b))}}
         />
       </ListItem>
       <ListItem>
@@ -72,7 +72,7 @@ export default function PreviewColor() {
           }}
           variant="outlined"
           value={previewColor.g}
-          onChange={(event)=>{setPreviewColorTrue(new Color(previewColor.r, parseInt(event.target.value), previewColor.b))}}
+          onChange={(event)=>{setPreviewColor(new Color(previewColor.r, parseInt(event.target.value), previewColor.b))}}
         />
       </ListItem>
       <ListItem>
@@ -84,7 +84,7 @@ export default function PreviewColor() {
           }}
           variant="outlined"
           value={previewColor.b}
-          onChange={(event)=>{setPreviewColorTrue(new Color(previewColor.r, previewColor.g, parseInt(event.target.value)))}}
+          onChange={(event)=>{setPreviewColor(new Color(previewColor.r, previewColor.g, parseInt(event.target.value)))}}
         />
       </ListItem>
       <ListItem>

@@ -1,9 +1,11 @@
+import { useContext } from 'react';
+
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Cell from '../models/Cell';
 
-import { SetPreviewColorContext } from '../contexts/SetPreviewColorContext';
+import { UpdatePreviewColorContext } from '../contexts/UpdatePreviewColorContext';
 
 
 const useStyles = makeStyles({
@@ -17,16 +19,10 @@ const useStyles = makeStyles({
 export default function GameCell( { cell } : { cell: Cell } )
 {
     const classes = useStyles(cell);
+
+    const { updatePreviewColor, setUpdatePreviewColor } = useContext(UpdatePreviewColorContext);
     
     return (
-          <SetPreviewColorContext.Consumer>
-          {({setPreviewColor, initSetPreviewColor}) => 
-            {   
-              return(
-                <Grid item className={classes.cell} onClick={()=>setPreviewColor(cell.color)}/>
-              )
-            }
-          }
-          </SetPreviewColorContext.Consumer>
+      <Grid item className={classes.cell} onClick={()=>updatePreviewColor(cell.color)}/> 
     )
 }

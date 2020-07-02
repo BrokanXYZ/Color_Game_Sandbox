@@ -10,7 +10,7 @@ import StartStopFab from '../components/StartStopFab';
 
 import Color from '../models/Color';
 
-import { SetPreviewColorContext } from '../contexts/SetPreviewColorContext';
+import { UpdatePreviewColorContext } from '../contexts/UpdatePreviewColorContext';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,14 +31,14 @@ export default function Index() {
 
   const [open, setOpen] = useState(false);
 
-  const [setPreviewColor, initSetPreviewColor] = useState<(newPreviewColor: Color)=>void>(
+  const [updatePreviewColor, setUpdatePreviewColor] = useState<(newPreviewColor: Color)=>void>(
     () => (newPreviewColor: Color) => {}
   );
 
-  const SetPreviewColorContextValue = 
+  const updatePreviewColorContextValue = 
     { 
-      setPreviewColor: setPreviewColor, 
-      initSetPreviewColor: initSetPreviewColor
+      updatePreviewColor: updatePreviewColor, 
+      setUpdatePreviewColor: setUpdatePreviewColor
     };
 
   const handleDrawerOpen = () => {
@@ -54,7 +54,7 @@ export default function Index() {
       
       <CssBaseline />
 
-      <SetPreviewColorContext.Provider value={SetPreviewColorContextValue}>
+      <UpdatePreviewColorContext.Provider value={updatePreviewColorContextValue}>
         <CustomAppBar 
           open={open}
           handleDrawerOpen={handleDrawerOpen}
@@ -66,7 +66,7 @@ export default function Index() {
           <Game />
           <StartStopFab />
         </main>
-      </SetPreviewColorContext.Provider>
+      </UpdatePreviewColorContext.Provider>
 
     </Layout>
   )
