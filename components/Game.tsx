@@ -16,13 +16,15 @@ export default function Game(
     {
         pointerActionType,
         previewColor,
-        setPreviewColor
+        setPreviewColor,
+        isSimulationRunning
     }
     :
     {
         pointerActionType: string,
         previewColor: Color,
-        setPreviewColor: Dispatch<SetStateAction<Color>>
+        setPreviewColor: Dispatch<SetStateAction<Color>>,
+        isSimulationRunning: boolean
     }
 ) 
 {
@@ -53,19 +55,21 @@ export default function Game(
 
     const gameLoop = () => {
 
-        const newGameGrid: GameGrid = gameGrid.clone();
+        if(isSimulationRunning){
+            const newGameGrid: GameGrid = gameGrid.clone();
 
-        gameGrid.cells.forEach(
-            (row, i) => {
-                row.forEach(
-                    (cell, j) => {
-                        newGameGrid.cells[i][j].color = spreadColor(cell, i, j);
-                    }
-                );
-            }
-        );
+            gameGrid.cells.forEach(
+                (row, i) => {
+                    row.forEach(
+                        (cell, j) => {
+                            newGameGrid.cells[i][j].color = spreadColor(cell, i, j);
+                        }
+                    );
+                }
+            );
 
-        setGameGrid(newGameGrid);
+            setGameGrid(newGameGrid);
+        }
     };    
     
     useInterval(() => {
