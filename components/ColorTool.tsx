@@ -11,8 +11,6 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 import Color from '../models/Color';
 
-import { UpdatePreviewColorContext } from '../contexts/UpdatePreviewColorContext';
-
 
 const useStyles = makeStyles((theme) => ({
   colorPreview: (previewColor: Color) => ({
@@ -23,28 +21,30 @@ const useStyles = makeStyles((theme) => ({
   }),
 }));
 
-export default function PreviewColor({
-  pointerActionType,
-  setPointerActionType
-}: {
-  pointerActionType: string,
-  setPointerActionType: Dispatch<SetStateAction<string>>
-}) {
+export default function PreviewColor(
+  {
+    pointerActionType,
+    setPointerActionType,
+    previewColor,
+    setPreviewColor
+  }
+  :
+  {
+    pointerActionType: string,
+    setPointerActionType: Dispatch<SetStateAction<string>>,
+    previewColor: Color,
+    setPreviewColor: Dispatch<SetStateAction<Color>>
+  }
+) 
+{
     
-  const [previewColor, setPreviewColor] = useState<Color>(new Color(255,255,255));
   const classes = useStyles(previewColor);
-
-  const { updatePreviewColor, setUpdatePreviewColor } = useContext(UpdatePreviewColorContext);
 
   const handleGetSetChange = (event: any, newType: string) => {
     if(newType != null){
       setPointerActionType(newType);
     }
   };
-
-  useEffect(() => {
-    setUpdatePreviewColor(() => setPreviewColor);
-  }, []);
 
   return (
     <List>

@@ -10,8 +10,6 @@ import StartStopFab from '../components/StartStopFab';
 
 import Color from '../models/Color';
 
-import { UpdatePreviewColorContext } from '../contexts/UpdatePreviewColorContext';
-
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -31,16 +29,7 @@ export default function Index() {
 
   const [open, setOpen] = useState(false);
   const [pointerActionType, setPointerActionType] = useState<string>("get");
-
-  const [updatePreviewColor, setUpdatePreviewColor] = useState<(newPreviewColor: Color)=>void>(
-    () => (newPreviewColor: Color) => {}
-  );
-
-  const updatePreviewColorContextValue = 
-    { 
-      updatePreviewColor: updatePreviewColor, 
-      setUpdatePreviewColor: setUpdatePreviewColor
-    };
+  const [previewColor, setPreviewColor] = useState<Color>(new Color(255,255,255));
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -55,21 +44,25 @@ export default function Index() {
       
       <CssBaseline />
 
-      <UpdatePreviewColorContext.Provider value={updatePreviewColorContextValue}>
-        <CustomAppBar 
-          open={open}
-          handleDrawerOpen={handleDrawerOpen}
-          handleDrawerClose={handleDrawerClose}
+      <CustomAppBar 
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
+        handleDrawerClose={handleDrawerClose}
+        pointerActionType={pointerActionType}
+        setPointerActionType={setPointerActionType}
+        previewColor={previewColor}
+        setPreviewColor={setPreviewColor}
+      />
+      <main
+        className={classes.content}
+      >
+        <Game 
           pointerActionType={pointerActionType}
-          setPointerActionType={setPointerActionType}
+          previewColor={previewColor}
+          setPreviewColor={setPreviewColor}
         />
-        <main
-          className={classes.content}
-        >
-          <Game />
-          <StartStopFab />
-        </main>
-      </UpdatePreviewColorContext.Provider>
+        <StartStopFab />
+      </main>
 
     </Layout>
   )

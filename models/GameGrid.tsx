@@ -19,7 +19,7 @@ export default class GameGrid {
             let row = [];
 
             for(let j: number = 0; j<this.columns; j++){
-                row.push( new Cell(new Color(255, 255, 255)));
+                row.push(new Cell(new Color(255, 255, 255), i, j));
             }
 
             newCells.push(row);

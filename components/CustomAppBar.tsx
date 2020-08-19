@@ -11,6 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CustomDrawer from './CustomDrawer';
 import { Dispatch, SetStateAction } from 'react';
 
+import Color from '../models/Color';
+
 
 const drawerWidth = 240;
 
@@ -43,13 +45,17 @@ export default function CustomAppBar({
     handleDrawerOpen,
     handleDrawerClose,
     pointerActionType,
-    setPointerActionType
+    setPointerActionType,
+    previewColor,
+    setPreviewColor
   }: {
     open: boolean,
     handleDrawerOpen: () => void,
     handleDrawerClose: () => void,
     pointerActionType: string,
-    setPointerActionType: Dispatch<SetStateAction<string>>
+    setPointerActionType: Dispatch<SetStateAction<string>>,
+    previewColor: Color,
+    setPreviewColor: Dispatch<SetStateAction<Color>>
   }) {
     const classes = useStyles();
     
@@ -82,6 +88,8 @@ export default function CustomAppBar({
                 handleDrawerClose={handleDrawerClose}
                 pointerActionType={pointerActionType}
                 setPointerActionType={setPointerActionType}
+                previewColor={previewColor}
+                setPreviewColor={setPreviewColor}
             />
         </>
     );

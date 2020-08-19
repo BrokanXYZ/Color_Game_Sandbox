@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, SetStateAction, Dispatch } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -12,7 +12,20 @@ import useInterval from '../hooks/UseInterval';
 import GameCell from './GameCell';
 
 
-export default function Game() {
+export default function Game(
+    {
+        pointerActionType,
+        previewColor,
+        setPreviewColor
+    }
+    :
+    {
+        pointerActionType: string,
+        previewColor: Color,
+        setPreviewColor: Dispatch<SetStateAction<Color>>
+    }
+) 
+{
 
     const rows: number = 20;
     const columns: number = 30;
@@ -68,7 +81,15 @@ export default function Game() {
                             {row.map(
                                 (cell, j) => {
                                     return(
-                                        <GameCell cell={cell} key={"cell-"+j}/>
+                                        <GameCell 
+                                            cell={cell} 
+                                            key={"cell-"+j} 
+                                            pointerActionType={pointerActionType}
+                                            previewColor={previewColor}
+                                            setPreviewColor={setPreviewColor}
+                                            gameGrid={gameGrid}
+                                            setGameGrid={setGameGrid}
+                                        />
                                     )
                                 }
                             )}

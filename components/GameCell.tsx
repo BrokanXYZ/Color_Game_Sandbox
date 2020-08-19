@@ -1,11 +1,11 @@
-import { useContext } from 'react';
+import { useState, Dispatch, SetStateAction } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Cell from '../models/Cell';
-
-import { UpdatePreviewColorContext } from '../contexts/UpdatePreviewColorContext';
+import Color from '../models/Color';
+import GameGrid from '../models/GameGrid';
 
 
 const useStyles = makeStyles({
@@ -16,13 +16,45 @@ const useStyles = makeStyles({
     }),
   });
 
-export default function GameCell( { cell } : { cell: Cell } )
+export default function GameCell( 
+  { 
+    cell,
+    pointerActionType,
+    previewColor,
+    setPreviewColor,
+    gameGrid,
+    setGameGrid
+  } 
+  : 
+  { 
+    cell: Cell, 
+    pointerActionType: string,
+    previewColor: Color,
+    setPreviewColor: Dispatch<SetStateAction<Color>>,
+    gameGrid: GameGrid,
+    setGameGrid: Dispatch<SetStateAction<GameGrid>>
+  } 
+)
 {
     const classes = useStyles(cell);
 
-    const { updatePreviewColor, setUpdatePreviewColor } = useContext(UpdatePreviewColorContext);
+    const handleClick = () => {
+      switch(pointerActionType){
+        case "get":
+          setPreviewColor(cell.color)
+          break;
+        case "set":
+          let newGameGrid = gameGrid.clone();
+          newGameGrid.cells[cell.x][cell.y].color = previewColor;
+          setGameGrid(newGameGrid);
+          break;
+        default:
+          console.error("pointerActionType is incorrectly set: " + pointerActionType);
+      }
+    }
+
     
     return (
-      <Grid item className={classes.cell} onClick={()=>updatePreviewColor(cell.color)}/> 
+      <Grid item className={classes.cell} onClick={handleClick}/> 
     )
 }

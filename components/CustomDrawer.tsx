@@ -1,4 +1,4 @@
-import React, {useState, Dispatch, SetStateAction} from 'react';
+import React, {Dispatch, SetStateAction} from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -12,6 +12,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import ColorTool from './ColorTool';
 import GameOptions from './GameOptions';
+import Color from '../models/Color';
 
 
 const drawerWidth = 240;
@@ -34,17 +35,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomDrawer({
-  isDrawerOpen,
-  handleDrawerClose,
-  pointerActionType,
-  setPointerActionType
-}: {
-  isDrawerOpen: boolean,
-  handleDrawerClose: () => void,
-  pointerActionType: string,
-  setPointerActionType: Dispatch<SetStateAction<string>>
-}) {
+export default function CustomDrawer(
+  {
+    isDrawerOpen,
+    handleDrawerClose,
+    pointerActionType,
+    setPointerActionType,
+    previewColor,
+    setPreviewColor
+  }
+  : 
+  {
+    isDrawerOpen: boolean,
+    handleDrawerClose: () => void,
+    pointerActionType: string,
+    setPointerActionType: Dispatch<SetStateAction<string>>,
+    previewColor: Color,
+    setPreviewColor: Dispatch<SetStateAction<Color>>
+  }
+) 
+{
   const classes = useStyles();
 
   return (
@@ -67,6 +77,8 @@ export default function CustomDrawer({
       <ColorTool 
         pointerActionType={pointerActionType}
         setPointerActionType={setPointerActionType}
+        previewColor={previewColor}
+        setPreviewColor={setPreviewColor}
       />
       <Divider />
       <GameOptions />
