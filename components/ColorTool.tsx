@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, Dispatch, SetStateAction } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -23,10 +23,15 @@ const useStyles = makeStyles((theme) => ({
   }),
 }));
 
-export default function PreviewColor() {
+export default function PreviewColor({
+  pointerActionType,
+  setPointerActionType
+}: {
+  pointerActionType: string,
+  setPointerActionType: Dispatch<SetStateAction<string>>
+}) {
     
   const [previewColor, setPreviewColor] = useState<Color>(new Color(255,255,255));
-  const [pointerActionType, setPointerActionType] = useState<string>("get");
   const classes = useStyles(previewColor);
 
   const { updatePreviewColor, setUpdatePreviewColor } = useContext(UpdatePreviewColorContext);

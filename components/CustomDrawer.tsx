@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, Dispatch, SetStateAction} from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -10,7 +10,7 @@ import ListItem from '@material-ui/core/ListItem';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-import PreviewColor from './PreviewColor';
+import ColorTool from './ColorTool';
 import GameOptions from './GameOptions';
 
 
@@ -37,9 +37,13 @@ const useStyles = makeStyles((theme) => ({
 export default function CustomDrawer({
   isDrawerOpen,
   handleDrawerClose,
+  pointerActionType,
+  setPointerActionType
 }: {
   isDrawerOpen: boolean,
   handleDrawerClose: () => void,
+  pointerActionType: string,
+  setPointerActionType: Dispatch<SetStateAction<string>>
 }) {
   const classes = useStyles();
 
@@ -60,7 +64,10 @@ export default function CustomDrawer({
       </div>
 
       <Divider />
-      <PreviewColor />
+      <ColorTool 
+        pointerActionType={pointerActionType}
+        setPointerActionType={setPointerActionType}
+      />
       <Divider />
       <GameOptions />
       <Divider />

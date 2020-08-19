@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import CustomDrawer from './CustomDrawer';
+import { Dispatch, SetStateAction } from 'react';
 
 
 const drawerWidth = 240;
@@ -41,10 +42,14 @@ export default function CustomAppBar({
     open,
     handleDrawerOpen,
     handleDrawerClose,
+    pointerActionType,
+    setPointerActionType
   }: {
     open: boolean,
     handleDrawerOpen: () => void,
     handleDrawerClose: () => void,
+    pointerActionType: string,
+    setPointerActionType: Dispatch<SetStateAction<string>>
   }) {
     const classes = useStyles();
     
@@ -75,6 +80,8 @@ export default function CustomAppBar({
             <CustomDrawer
                 isDrawerOpen={open}
                 handleDrawerClose={handleDrawerClose}
+                pointerActionType={pointerActionType}
+                setPointerActionType={setPointerActionType}
             />
         </>
     );

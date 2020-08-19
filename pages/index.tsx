@@ -30,6 +30,7 @@ export default function Index() {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
+  const [pointerActionType, setPointerActionType] = useState<string>("get");
 
   const [updatePreviewColor, setUpdatePreviewColor] = useState<(newPreviewColor: Color)=>void>(
     () => (newPreviewColor: Color) => {}
@@ -59,6 +60,8 @@ export default function Index() {
           open={open}
           handleDrawerOpen={handleDrawerOpen}
           handleDrawerClose={handleDrawerClose}
+          pointerActionType={pointerActionType}
+          setPointerActionType={setPointerActionType}
         />
         <main
           className={classes.content}
