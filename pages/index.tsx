@@ -30,6 +30,9 @@ export default function Index() {
   const [open, setOpen] = useState(false);
   const [pointerActionType, setPointerActionType] = useState<string>("get");
   const [previewColor, setPreviewColor] = useState<Color>(new Color(255,255,255));
+  const [colorSpreadMagnitude, setColorSpreadMagnitude] = useState<number>(1);
+  const [tickRate, setTickRate] = useState<number>(500);
+  const [colorSpreadStrategy, setColorSpreadStrategy] = useState<string>("basic");
   const [isSimulationRunning, setIsSimulationRunning] = useState<boolean>(false);
 
   const handleDrawerOpen = () => {
@@ -53,6 +56,12 @@ export default function Index() {
         setPointerActionType={setPointerActionType}
         previewColor={previewColor}
         setPreviewColor={setPreviewColor}
+        colorSpreadStrategy={colorSpreadStrategy}
+        setColorSpreadStrategy={setColorSpreadStrategy}
+        colorSpreadMagnitude={colorSpreadMagnitude}
+        setColorSpreadMagnitude={setColorSpreadMagnitude}
+        tickRate={tickRate}
+        setTickRate={setTickRate}
       />
       <main
         className={classes.content}
@@ -62,6 +71,9 @@ export default function Index() {
           previewColor={previewColor}
           setPreviewColor={setPreviewColor}
           isSimulationRunning={isSimulationRunning}
+          colorSpreadStrategy={colorSpreadStrategy}
+          colorSpreadMagnitude={colorSpreadMagnitude}
+          tickRate={tickRate}
         />
         <StartStopFab 
           isSimulationRunning={isSimulationRunning}

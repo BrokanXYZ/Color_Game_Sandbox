@@ -47,7 +47,13 @@ export default function CustomAppBar({
     pointerActionType,
     setPointerActionType,
     previewColor,
-    setPreviewColor
+    setPreviewColor,
+    colorSpreadStrategy,
+    setColorSpreadStrategy,
+    colorSpreadMagnitude,
+    setColorSpreadMagnitude,
+    tickRate,
+    setTickRate
   }: {
     open: boolean,
     handleDrawerOpen: () => void,
@@ -55,7 +61,13 @@ export default function CustomAppBar({
     pointerActionType: string,
     setPointerActionType: Dispatch<SetStateAction<string>>,
     previewColor: Color,
-    setPreviewColor: Dispatch<SetStateAction<Color>>
+    setPreviewColor: Dispatch<SetStateAction<Color>>,
+    colorSpreadStrategy: string,
+    setColorSpreadStrategy: Dispatch<SetStateAction<string>>,
+    colorSpreadMagnitude: number,
+    setColorSpreadMagnitude: Dispatch<SetStateAction<number>>,
+    tickRate: number,
+    setTickRate: Dispatch<SetStateAction<number>>
   }) {
     const classes = useStyles();
     
@@ -90,6 +102,12 @@ export default function CustomAppBar({
                 setPointerActionType={setPointerActionType}
                 previewColor={previewColor}
                 setPreviewColor={setPreviewColor}
+                colorSpreadStrategy={colorSpreadStrategy}
+                setColorSpreadStrategy={setColorSpreadStrategy}
+                colorSpreadMagnitude={colorSpreadMagnitude}
+                setColorSpreadMagnitude={setColorSpreadMagnitude}
+                tickRate={tickRate}
+                setTickRate={setTickRate}
             />
         </>
     );

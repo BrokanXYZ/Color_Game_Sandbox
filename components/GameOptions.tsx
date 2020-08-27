@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, Dispatch, SetStateAction, ChangeEvent} from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -17,13 +17,51 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PreviewColor() {
-    
+export default function PreviewColor(
+  {
+    colorSpreadStrategy,
+    setColorSpreadStrategy,
+    colorSpreadMagnitude,
+    setColorSpreadMagnitude,
+    tickRate,
+    setTickRate
+  }
+  : 
+  {
+    colorSpreadStrategy: string,
+    setColorSpreadStrategy: Dispatch<SetStateAction<string>>,
+    colorSpreadMagnitude: number,
+    setColorSpreadMagnitude: Dispatch<SetStateAction<number>>,
+    tickRate: number,
+    setTickRate: Dispatch<SetStateAction<number>>
+  }
+) 
+{   
   const classes = useStyles();
 
-  const [tickRate, setTickRate] = useState<number>(1000);
-  const [colorSpreadMagnitude, setColorSpreadMagnitude] = useState<number>(1);
-  const [colorSpreadWeightStrategy, setColorSpreadWeightStrategy] = useState<string>("");
+  const handleTickRateChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const tickRate: number = parseInt(event.target.value, 10);
+    if(tickRate>=0)
+    {
+      setTickRate(tickRate);
+    }
+    else
+    {
+      setTickRate(0);
+    }
+  };
+
+  const handleColorSpreadMagnitudeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const colorSpreadMagnitude: number = parseInt(event.target.value, 10);
+    if(colorSpreadMagnitude>=0)
+    {
+      setColorSpreadMagnitude(colorSpreadMagnitude);
+    }
+    else
+    {
+      setColorSpreadMagnitude(0);
+    }
+  };
 
   return (
     <List>
@@ -34,6 +72,7 @@ export default function PreviewColor() {
       </ListItem>
       <ListItem>
         <TextField
+          disabled
           label="Tick Rate"
           type="number"
           InputLabelProps={{
@@ -41,7 +80,7 @@ export default function PreviewColor() {
           }}
           variant="outlined"
           value={tickRate}
-          onChange={(event)=>{setTickRate(parseInt(event.target.value))}}
+          onChange={handleTickRateChange}
         />
       </ListItem>
       <ListItem>
@@ -53,21 +92,21 @@ export default function PreviewColor() {
           }}
           variant="outlined"
           value={colorSpreadMagnitude}
-          onChange={(event)=>{setColorSpreadMagnitude(parseInt(event.target.value))}}
+          onChange={handleColorSpreadMagnitudeChange}
         />
       </ListItem>
       <ListItem>
         <FormControl className={classes.formControl}>
           <InputLabel shrink >
-            Color Spread Weight Strategy
+            Color Spread Strategy
           </InputLabel>
           <Select
-            value={colorSpreadWeightStrategy}
-            onChange={(event)=>{setColorSpreadWeightStrategy(String(event.target.value))}}
+            value={colorSpreadStrategy}
+            onChange={(event)=>{setColorSpreadStrategy(String(event.target.value))}}
             displayEmpty
             style={{marginTop: '30px'}}
           >
-            <MenuItem value="">
+            <MenuItem value="basic">
               <em>Basic</em>
             </MenuItem>
           </Select>

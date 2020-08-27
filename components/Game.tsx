@@ -17,21 +17,26 @@ export default function Game(
         pointerActionType,
         previewColor,
         setPreviewColor,
-        isSimulationRunning
+        isSimulationRunning,
+        colorSpreadStrategy,
+        colorSpreadMagnitude,
+        tickRate
     }
     :
     {
         pointerActionType: string,
         previewColor: Color,
         setPreviewColor: Dispatch<SetStateAction<Color>>,
-        isSimulationRunning: boolean
+        isSimulationRunning: boolean,
+        colorSpreadStrategy: string,
+        colorSpreadMagnitude: number,
+        tickRate: number
     }
 ) 
 {
 
     const rows: number = 20;
     const columns: number = 30;
-    const tickLength: number = 500;
 
     const [gameGrid, setGameGrid] = useState<GameGrid>( () => {
         let initialGameGrid = new GameGrid(rows, columns);
@@ -43,7 +48,6 @@ export default function Game(
 
         let newColor: Color = cell.color;
         let neighborColors: Color[] = [];
-        let colorSpreadMagnitude: number = 15;
 
         // Get neighborColors
         for(let x=i-1; x<i+2; x++)
@@ -113,7 +117,7 @@ export default function Game(
     
     useInterval(() => {
         gameLoop();
-    }, tickLength);
+    }, tickRate);
 
   return (
    <Grid container style={{marginTop: "20px"}}>
