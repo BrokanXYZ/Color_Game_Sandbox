@@ -68,7 +68,7 @@ export default function PreviewColor() {
             style={{marginTop: '30px'}}
           >
             <MenuItem value="">
-              <em>None</em>
+              <em>Basic</em>
             </MenuItem>
           </Select>
         </FormControl>
