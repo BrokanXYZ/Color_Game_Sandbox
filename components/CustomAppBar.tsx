@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+      backgroundImage: 'linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)'
     },
     appBarShift: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -90,8 +91,8 @@ export default function CustomAppBar({
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap>
-                        Color Game Sandbox
+                    <Typography variant="h6" noWrap style={{textShadow: '0px 0px 4px black', width: '200px'}}>
+                        &nbsp;Color Game Sandbox
                     </Typography>
                 </Toolbar>
             </AppBar>

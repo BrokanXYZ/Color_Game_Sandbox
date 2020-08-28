@@ -120,7 +120,7 @@ export default function Game(
     }, tickRate);
 
   return (
-   <Grid container style={{marginTop: "20px"}}>
+   <Grid container style={{marginTop: "20px", boxShadow: "0px 0px 25px 4px grey"}}>
        {gameGrid.cells.map(
                 (row, i) => {
                     return(
