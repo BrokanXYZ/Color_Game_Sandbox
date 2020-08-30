@@ -60,6 +60,12 @@ export default function MapOptions(
             <MenuItem value="basic">
               <em>Basic</em>
             </MenuItem>
+            <MenuItem value="basicWithNoWhite">
+              <em>Basic with no white</em>
+            </MenuItem>
+            <MenuItem value="redAndBlue">
+              <em>Red and Blue</em>
+            </MenuItem>
           </Select>
         </FormControl>
       </ListItem>

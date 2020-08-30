@@ -29,6 +29,64 @@ export default class GameGrid {
 
         switch(mapName)
         {
+            case "basicWithNoWhite":
+                for(let i: number = 0; i<this.rows; i++){
+                    for(let j: number = 0; j<this.columns; j++){
+                        if(i>this.rows/2-1)
+                        {
+                            if(j>this.columns/2-1)
+                            {
+                                newCells[i][j].color = new Color(255, 0, 0);
+                            }
+                            else
+                            {
+                                newCells[i][j].color = new Color(0, 255, 0);
+                            }
+                        }
+                        else
+                        {
+                            if(j>this.columns/2-1)
+                            {
+                                newCells[i][j].color = new Color(255, 255, 0);
+                            }
+                            else
+                            {
+                                newCells[i][j].color = new Color(0, 0, 255);
+                            }
+                        }
+                    }
+                }
+                newCells[this.rows/2-1][this.columns/2-1].color = new Color(0, 0, 0);
+                newCells[this.rows/2][this.columns/2-1].color = new Color(0, 0, 0);
+                newCells[this.rows/2-1][this.columns/2].color = new Color(0, 0, 0);
+                newCells[this.rows/2][this.columns/2].color = new Color(0, 0, 0);
+                newCells[this.rows/2+1][this.columns/2-1].color = new Color(0, 0, 0);
+                newCells[this.rows/2+1][this.columns/2].color = new Color(0, 0, 0);
+                newCells[this.rows/2+1][this.columns/2+1].color = new Color(0, 0, 0);
+                newCells[this.rows/2][this.columns/2+1].color = new Color(0, 0, 0);
+                newCells[this.rows/2-1][this.columns/2+1].color = new Color(0, 0, 0);
+                newCells[this.rows/2-2][this.columns/2+1].color = new Color(0, 0, 0);
+                newCells[this.rows/2-2][this.columns/2].color = new Color(0, 0, 0);
+                newCells[this.rows/2-2][this.columns/2-1].color = new Color(0, 0, 0);
+                newCells[this.rows/2-2][this.columns/2-2].color = new Color(0, 0, 0);
+                newCells[this.rows/2-1][this.columns/2-2].color = new Color(0, 0, 0);
+                newCells[this.rows/2][this.columns/2-2].color = new Color(0, 0, 0);
+                newCells[this.rows/2+1][this.columns/2-2].color = new Color(0, 0, 0);
+                break;
+            case "redAndBlue":
+                for(let i: number = 0; i<this.rows; i++){
+                    for(let j: number = 0; j<this.columns; j++){
+                        if(j>this.columns/2-1)
+                        {
+                            newCells[i][j].color = new Color(0, 0, 255);
+                        }
+                        else
+                        {
+                            newCells[i][j].color = new Color(255, 0, 0);
+                        }
+                    }
+                }
+                break;
             case "basic":
             default:
                 newCells[0][this.columns-1].color = new Color(255, 255, 0);

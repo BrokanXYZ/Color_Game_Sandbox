@@ -106,6 +106,13 @@ export default function CustomDrawer(
         setColorToolCellProperties={setColorToolCellProperties}
       />
       <Divider />
+      <MapOptions
+        pleaseSetTheMap={pleaseSetTheMap}
+        setPleaseSetTheMap={setPleaseSetTheMap}
+        mapName={mapName}
+        setMapName={setMapName}
+      />
+      <Divider />
       <GameOptions 
         colorSpreadStrategy={colorSpreadStrategy}
         setColorSpreadStrategy={setColorSpreadStrategy}
@@ -114,15 +121,6 @@ export default function CustomDrawer(
         tickRate={tickRate}
         setTickRate={setTickRate}
       />
-      <Divider />
-
-      <MapOptions
-        pleaseSetTheMap={pleaseSetTheMap}
-        setPleaseSetTheMap={setPleaseSetTheMap}
-        mapName={mapName}
-        setMapName={setMapName}
-      />
-      
     </Drawer>
   );
 }
