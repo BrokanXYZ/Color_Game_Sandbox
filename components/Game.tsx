@@ -44,6 +44,8 @@ export default function Game(
         return initialGameGrid;
     });
 
+    const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
+
     const spreadColor = (cell: Cell, i: number, j: number): Color => {
 
         let newColor: Color = cell.color;
@@ -119,31 +121,37 @@ export default function Game(
         gameLoop();
     }, tickRate);
 
-  return (
-   <Grid container style={{marginTop: "20px", boxShadow: "0px 0px 25px 4px grey"}}>
-       {gameGrid.cells.map(
-                (row, i) => {
-                    return(
-                        <Grid container item xs={12} key={"row-"+i}>
-                            {row.map(
-                                (cell, j) => {
-                                    return(
-                                        <GameCell 
-                                            cell={cell} 
-                                            key={"cell-"+j} 
-                                            pointerActionType={pointerActionType}
-                                            previewColor={previewColor}
-                                            setPreviewColor={setPreviewColor}
-                                            gameGrid={gameGrid}
-                                            setGameGrid={setGameGrid}
-                                        />
-                                    )
-                                }
-                            )}
-                        </Grid>
-                    )
-                }
-        )}
-   </Grid>
-  )
+    return (
+    <Grid 
+        container 
+        style={{marginTop: "20px", boxShadow: "0px 0px 25px 4px grey"}}
+        onMouseEnter={()=>setIsMouseDown(false)}
+    >
+        {gameGrid.cells.map(
+                    (row, i) => {
+                        return(
+                            <Grid container item xs={12} key={"row-"+i}>
+                                {row.map(
+                                    (cell, j) => {
+                                        return(
+                                            <GameCell 
+                                                cell={cell} 
+                                                key={"cell-"+j} 
+                                                pointerActionType={pointerActionType}
+                                                previewColor={previewColor}
+                                                setPreviewColor={setPreviewColor}
+                                                gameGrid={gameGrid}
+                                                setGameGrid={setGameGrid}
+                                                isMouseDown={isMouseDown}
+                                                setIsMouseDown={setIsMouseDown}
+                                            />
+                                        )
+                                    }
+                                )}
+                            </Grid>
+                        )
+                    }
+            )}
+        </Grid>
+    )
 }

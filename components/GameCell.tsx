@@ -23,7 +23,9 @@ export default function GameCell(
     previewColor,
     setPreviewColor,
     gameGrid,
-    setGameGrid
+    setGameGrid,
+    isMouseDown,
+    setIsMouseDown,
   } 
   : 
   { 
@@ -32,7 +34,9 @@ export default function GameCell(
     previewColor: Color,
     setPreviewColor: Dispatch<SetStateAction<Color>>,
     gameGrid: GameGrid,
-    setGameGrid: Dispatch<SetStateAction<GameGrid>>
+    setGameGrid: Dispatch<SetStateAction<GameGrid>>,
+    isMouseDown: boolean,
+    setIsMouseDown: Dispatch<SetStateAction<boolean>>,
   } 
 )
 {
@@ -53,8 +57,31 @@ export default function GameCell(
       }
     }
 
+    const handleMouseOver = () => {
+      if(pointerActionType === "set" && isMouseDown)
+      {
+        let newGameGrid = gameGrid.clone();
+        newGameGrid.cells[cell.x][cell.y].color = previewColor;
+        setGameGrid(newGameGrid);
+      }
+    }
+
+    const handleMouseDown = () => {
+      setIsMouseDown(true);
+    }
+
+    const handleMouseUp = () => {
+      setIsMouseDown(false);
+    }
     
     return (
-      <Grid item className={classes.cell} onClick={handleClick}/> 
+      <Grid 
+        item 
+        className={classes.cell} 
+        onClick={handleClick} 
+        onMouseOver={handleMouseOver} 
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+      /> 
     )
 }
