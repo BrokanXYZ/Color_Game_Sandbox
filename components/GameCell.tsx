@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Cell from '../models/Cell';
 import Color from '../models/Color';
 import GameGrid from '../models/GameGrid';
+import ColorToolCellProperties from '../models/ColorToolCellProperties';
 
 
 const useStyles = makeStyles({
@@ -26,6 +27,7 @@ export default function GameCell(
     setGameGrid,
     isMouseDown,
     setIsMouseDown,
+    colorToolCellProperties
   } 
   : 
   { 
@@ -37,10 +39,18 @@ export default function GameCell(
     setGameGrid: Dispatch<SetStateAction<GameGrid>>,
     isMouseDown: boolean,
     setIsMouseDown: Dispatch<SetStateAction<boolean>>,
+    colorToolCellProperties: ColorToolCellProperties
   } 
 )
 {
     const classes = useStyles(cell);
+
+    const setCell = () => {
+      let newGameGrid = gameGrid.clone();
+      newGameGrid.cells[cell.x][cell.y].color = previewColor;
+      newGameGrid.cells[cell.x][cell.y].isColorStatic = colorToolCellProperties.staticColor;
+      setGameGrid(newGameGrid);
+    }
 
     const handleClick = () => {
       switch(pointerActionType){
@@ -48,9 +58,7 @@ export default function GameCell(
           setPreviewColor(cell.color)
           break;
         case "set":
-          let newGameGrid = gameGrid.clone();
-          newGameGrid.cells[cell.x][cell.y].color = previewColor;
-          setGameGrid(newGameGrid);
+          setCell();
           break;
         default:
           console.error("pointerActionType is incorrectly set: " + pointerActionType);
@@ -60,9 +68,7 @@ export default function GameCell(
     const handleMouseOver = () => {
       if(pointerActionType === "set" && isMouseDown)
       {
-        let newGameGrid = gameGrid.clone();
-        newGameGrid.cells[cell.x][cell.y].color = previewColor;
-        setGameGrid(newGameGrid);
+        setCell();
       }
     }
 

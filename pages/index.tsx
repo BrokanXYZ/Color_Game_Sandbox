@@ -9,6 +9,7 @@ import CustomAppBar from '../components/CustomAppBar';
 import StartStopFab from '../components/StartStopFab';
 
 import Color from '../models/Color';
+import ColorToolCellProperties from '../models/ColorToolCellProperties';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +35,7 @@ export default function Index() {
   const [tickRate, setTickRate] = useState<number>(500);
   const [colorSpreadStrategy, setColorSpreadStrategy] = useState<string>("basic");
   const [isSimulationRunning, setIsSimulationRunning] = useState<boolean>(false);
+  const [colorToolCellProperties, setColorToolCellProperties] = useState<ColorToolCellProperties>(new ColorToolCellProperties(false));
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -62,6 +64,8 @@ export default function Index() {
         setColorSpreadMagnitude={setColorSpreadMagnitude}
         tickRate={tickRate}
         setTickRate={setTickRate}
+        colorToolCellProperties={colorToolCellProperties}
+        setColorToolCellProperties={setColorToolCellProperties}
       />
       <main
         className={classes.content}
@@ -74,6 +78,7 @@ export default function Index() {
           colorSpreadStrategy={colorSpreadStrategy}
           colorSpreadMagnitude={colorSpreadMagnitude}
           tickRate={tickRate}
+          colorToolCellProperties={colorToolCellProperties}
         />
         <StartStopFab 
           isSimulationRunning={isSimulationRunning}

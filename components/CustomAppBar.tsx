@@ -12,6 +12,7 @@ import CustomDrawer from './CustomDrawer';
 import { Dispatch, SetStateAction } from 'react';
 
 import Color from '../models/Color';
+import ColorToolCellProperties from '../models/ColorToolCellProperties';
 
 
 const drawerWidth = 240;
@@ -54,7 +55,9 @@ export default function CustomAppBar({
     colorSpreadMagnitude,
     setColorSpreadMagnitude,
     tickRate,
-    setTickRate
+    setTickRate,
+    colorToolCellProperties,
+    setColorToolCellProperties
   }: {
     open: boolean,
     handleDrawerOpen: () => void,
@@ -68,7 +71,9 @@ export default function CustomAppBar({
     colorSpreadMagnitude: number,
     setColorSpreadMagnitude: Dispatch<SetStateAction<number>>,
     tickRate: number,
-    setTickRate: Dispatch<SetStateAction<number>>
+    setTickRate: Dispatch<SetStateAction<number>>,
+    colorToolCellProperties: ColorToolCellProperties,
+    setColorToolCellProperties: Dispatch<SetStateAction<ColorToolCellProperties>>
   }) {
     const classes = useStyles();
     
@@ -109,6 +114,8 @@ export default function CustomAppBar({
                 setColorSpreadMagnitude={setColorSpreadMagnitude}
                 tickRate={tickRate}
                 setTickRate={setTickRate}
+                colorToolCellProperties={colorToolCellProperties}
+                setColorToolCellProperties={setColorToolCellProperties}
             />
         </>
     );

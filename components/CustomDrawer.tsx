@@ -13,6 +13,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ColorTool from './ColorTool';
 import GameOptions from './GameOptions';
 import Color from '../models/Color';
+import ColorToolCellProperties from '../models/ColorToolCellProperties';
 
 
 const drawerWidth = 240;
@@ -48,7 +49,9 @@ export default function CustomDrawer(
     colorSpreadMagnitude,
     setColorSpreadMagnitude,
     tickRate,
-    setTickRate
+    setTickRate,
+    colorToolCellProperties,
+    setColorToolCellProperties
   }
   : 
   {
@@ -63,7 +66,9 @@ export default function CustomDrawer(
     colorSpreadMagnitude: number,
     setColorSpreadMagnitude: Dispatch<SetStateAction<number>>,
     tickRate: number,
-    setTickRate: Dispatch<SetStateAction<number>>
+    setTickRate: Dispatch<SetStateAction<number>>,
+    colorToolCellProperties: ColorToolCellProperties,
+    setColorToolCellProperties: Dispatch<SetStateAction<ColorToolCellProperties>>
   }
 ) 
 {
@@ -91,6 +96,8 @@ export default function CustomDrawer(
         setPointerActionType={setPointerActionType}
         previewColor={previewColor}
         setPreviewColor={setPreviewColor}
+        colorToolCellProperties={colorToolCellProperties}
+        setColorToolCellProperties={setColorToolCellProperties}
       />
       <Divider />
       <GameOptions 
