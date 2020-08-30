@@ -59,7 +59,7 @@ export default function PreviewColor(
   return (
     <List>
       <ListItem>
-        <Typography>
+        <Typography variant="h6">
           Color Tool
         </Typography>
       </ListItem>

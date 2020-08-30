@@ -66,7 +66,7 @@ export default function PreviewColor(
   return (
     <List>
       <ListItem>
-        <Typography>
+        <Typography variant="h6">
           Game Options
         </Typography>
       </ListItem>

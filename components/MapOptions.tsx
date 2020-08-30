@@ -39,7 +39,7 @@ export default function MapOptions(
   return (
     <List>
       <ListItem>
-        <Typography>
+        <Typography variant="h6">
           Map Options
         </Typography>
       </ListItem>
