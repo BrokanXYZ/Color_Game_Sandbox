@@ -4,14 +4,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import ColorTool from './ColorTool';
 import GameOptions from './GameOptions';
+import MapOptions from './MapOptions';
 import Color from '../models/Color';
 import ColorToolCellProperties from '../models/ColorToolCellProperties';
 
@@ -51,7 +49,11 @@ export default function CustomDrawer(
     tickRate,
     setTickRate,
     colorToolCellProperties,
-    setColorToolCellProperties
+    setColorToolCellProperties,
+    pleaseSetTheMap,
+    setPleaseSetTheMap,
+    mapName,
+    setMapName
   }
   : 
   {
@@ -68,7 +70,11 @@ export default function CustomDrawer(
     tickRate: number,
     setTickRate: Dispatch<SetStateAction<number>>,
     colorToolCellProperties: ColorToolCellProperties,
-    setColorToolCellProperties: Dispatch<SetStateAction<ColorToolCellProperties>>
+    setColorToolCellProperties: Dispatch<SetStateAction<ColorToolCellProperties>>,
+    pleaseSetTheMap: boolean,
+    setPleaseSetTheMap: Dispatch<SetStateAction<boolean>>,
+    mapName: string,
+    setMapName: Dispatch<SetStateAction<string>>
   }
 ) 
 {
@@ -110,13 +116,12 @@ export default function CustomDrawer(
       />
       <Divider />
 
-      <List>
-        <ListItem>
-          <Button variant="contained">
-            Reset Grid
-          </Button>
-        </ListItem>
-      </List>
+      <MapOptions
+        pleaseSetTheMap={pleaseSetTheMap}
+        setPleaseSetTheMap={setPleaseSetTheMap}
+        mapName={mapName}
+        setMapName={setMapName}
+      />
       
     </Drawer>
   );

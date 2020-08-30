@@ -36,6 +36,8 @@ export default function Index() {
   const [colorSpreadStrategy, setColorSpreadStrategy] = useState<string>("basic");
   const [isSimulationRunning, setIsSimulationRunning] = useState<boolean>(false);
   const [colorToolCellProperties, setColorToolCellProperties] = useState<ColorToolCellProperties>(new ColorToolCellProperties(false));
+  const [mapName, setMapName] = useState<string>("basic");
+  const [pleaseSetTheMap, setPleaseSetTheMap] = useState<boolean>(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -66,6 +68,10 @@ export default function Index() {
         setTickRate={setTickRate}
         colorToolCellProperties={colorToolCellProperties}
         setColorToolCellProperties={setColorToolCellProperties}
+        pleaseSetTheMap={pleaseSetTheMap}
+        setPleaseSetTheMap={setPleaseSetTheMap}
+        mapName={mapName}
+        setMapName={setMapName}
       />
       <main
         className={classes.content}
@@ -79,6 +85,8 @@ export default function Index() {
           colorSpreadMagnitude={colorSpreadMagnitude}
           tickRate={tickRate}
           colorToolCellProperties={colorToolCellProperties}
+          pleaseSetTheMap={pleaseSetTheMap}
+          mapName={mapName}
         />
         <StartStopFab 
           isSimulationRunning={isSimulationRunning}

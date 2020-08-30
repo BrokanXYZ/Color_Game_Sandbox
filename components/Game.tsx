@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, SetStateAction, Dispatch } from 'react';
+import { useState, useEffect, SetStateAction, Dispatch } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -22,7 +22,9 @@ export default function Game(
         colorSpreadStrategy,
         colorSpreadMagnitude,
         tickRate,
-        colorToolCellProperties
+        colorToolCellProperties,
+        pleaseSetTheMap,
+        mapName
     }
     :
     {
@@ -33,7 +35,9 @@ export default function Game(
         colorSpreadStrategy: string,
         colorSpreadMagnitude: number,
         tickRate: number,
-        colorToolCellProperties: ColorToolCellProperties
+        colorToolCellProperties: ColorToolCellProperties,
+        pleaseSetTheMap: boolean,
+        mapName: string
     }
 ) 
 {
@@ -43,11 +47,17 @@ export default function Game(
 
     const [gameGrid, setGameGrid] = useState<GameGrid>( () => {
         let initialGameGrid = new GameGrid(rows, columns);
-        initialGameGrid.setStartingCells();
+        initialGameGrid.setMap("basic");
         return initialGameGrid;
     });
 
     const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
+
+    useEffect(() => {
+        let newGameGrid: GameGrid = gameGrid.clone();
+        newGameGrid.setMap(mapName);
+        setGameGrid(newGameGrid);
+    }, [pleaseSetTheMap]);
 
     const spreadColor = (cell: Cell, i: number, j: number): Color => {
         

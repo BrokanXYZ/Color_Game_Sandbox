@@ -57,7 +57,11 @@ export default function CustomAppBar({
     tickRate,
     setTickRate,
     colorToolCellProperties,
-    setColorToolCellProperties
+    setColorToolCellProperties,
+    pleaseSetTheMap,
+    setPleaseSetTheMap,
+    mapName,
+    setMapName
   }: {
     open: boolean,
     handleDrawerOpen: () => void,
@@ -73,7 +77,11 @@ export default function CustomAppBar({
     tickRate: number,
     setTickRate: Dispatch<SetStateAction<number>>,
     colorToolCellProperties: ColorToolCellProperties,
-    setColorToolCellProperties: Dispatch<SetStateAction<ColorToolCellProperties>>
+    setColorToolCellProperties: Dispatch<SetStateAction<ColorToolCellProperties>>,
+    pleaseSetTheMap: boolean,
+    setPleaseSetTheMap: Dispatch<SetStateAction<boolean>>,
+    mapName: string,
+    setMapName: Dispatch<SetStateAction<string>>
   }) {
     const classes = useStyles();
     
@@ -116,6 +124,10 @@ export default function CustomAppBar({
                 setTickRate={setTickRate}
                 colorToolCellProperties={colorToolCellProperties}
                 setColorToolCellProperties={setColorToolCellProperties}
+                pleaseSetTheMap={pleaseSetTheMap}
+                setPleaseSetTheMap={setPleaseSetTheMap}
+                mapName={mapName}
+                setMapName={setMapName}
             />
         </>
     );
