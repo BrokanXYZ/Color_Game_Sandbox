@@ -25,11 +25,9 @@ export default class GameGrid {
             newCells.push(row);
         }
 
-        newCells[0][0].color = new Color(255, 0, 0);
-
         switch(mapName)
         {
-            case "basicWithNoWhite":
+            case "fourCornersWithNoWhite":
                 for(let i: number = 0; i<this.rows; i++){
                     for(let j: number = 0; j<this.columns; j++){
                         if(i>this.rows/2-1)
@@ -87,12 +85,15 @@ export default class GameGrid {
                     }
                 }
                 break;
-            case "basic":
-            default:
+            case "fourCorners":
+                newCells[0][0].color = new Color(255, 0, 0);
                 newCells[0][this.columns-1].color = new Color(255, 255, 0);
                 newCells[this.rows-1][0].color = new Color(0, 255, 0);
                 newCells[this.rows-1][this.columns-1].color = new Color(0, 0, 255);
                 newCells[this.rows/2-1][this.columns/2-1].color = new Color(0, 0, 0);
+                break;
+            case "white":
+            default:
                 break;
         }
         

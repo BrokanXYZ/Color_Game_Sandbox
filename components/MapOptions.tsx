@@ -57,11 +57,14 @@ export default function MapOptions(
             displayEmpty
             style={{marginTop: '30px'}}
           >
-            <MenuItem value="basic">
-              <em>Basic</em>
+            <MenuItem value="white">
+              <em>All White</em>
             </MenuItem>
-            <MenuItem value="basicWithNoWhite">
-              <em>Basic with no white</em>
+            <MenuItem value="fourCorners">
+              <em>Four Corners</em>
+            </MenuItem>
+            <MenuItem value="fourCornersWithNoWhite">
+              <em>Four Corners - no white</em>
             </MenuItem>
             <MenuItem value="redAndBlue">
               <em>Red and Blue</em>

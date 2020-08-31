@@ -36,7 +36,7 @@ export default function Index() {
   const [colorSpreadStrategy, setColorSpreadStrategy] = useState<string>("basic");
   const [isSimulationRunning, setIsSimulationRunning] = useState<boolean>(false);
   const [colorToolCellProperties, setColorToolCellProperties] = useState<ColorToolCellProperties>(new ColorToolCellProperties(false));
-  const [mapName, setMapName] = useState<string>("basic");
+  const [mapName, setMapName] = useState<string>("white");
   const [pleaseSetTheMap, setPleaseSetTheMap] = useState<boolean>(false);
 
   const handleDrawerOpen = () => {
