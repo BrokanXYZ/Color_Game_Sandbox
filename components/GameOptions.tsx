@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PreviewColor(
   {
-    colorSpreadStrategy,
-    setColorSpreadStrategy,
+    colorSpreadWeightStrategy,
+    setColorSpreadWeightStrategy,
     colorSpreadMagnitude,
     setColorSpreadMagnitude,
     tickRate,
@@ -28,8 +28,8 @@ export default function PreviewColor(
   }
   : 
   {
-    colorSpreadStrategy: string,
-    setColorSpreadStrategy: Dispatch<SetStateAction<string>>,
+    colorSpreadWeightStrategy: string,
+    setColorSpreadWeightStrategy: Dispatch<SetStateAction<string>>,
     colorSpreadMagnitude: number,
     setColorSpreadMagnitude: Dispatch<SetStateAction<number>>,
     tickRate: number,
@@ -101,13 +101,19 @@ export default function PreviewColor(
             Color Spread Strategy
           </InputLabel>
           <Select
-            value={colorSpreadStrategy}
-            onChange={(event)=>{setColorSpreadStrategy(String(event.target.value))}}
+            value={colorSpreadWeightStrategy}
+            onChange={(event)=>{setColorSpreadWeightStrategy(String(event.target.value))}}
             displayEmpty
             style={{marginTop: '30px'}}
           >
-            <MenuItem value="basic">
-              <em>Basic</em>
+            <MenuItem value="allEqual">
+              <em>All Equal</em>
+            </MenuItem>
+            <MenuItem value="asSumOfRgbValuesIncreasesWeightIncreases">
+              <em>As sum of RGB values increases, weight increases</em>
+            </MenuItem>
+            <MenuItem value="asSumOfRgbValuesIncreasesWeightDecreases">
+              <em>As sum of RGB values increases, weight decreases</em>
             </MenuItem>
           </Select>
         </FormControl>

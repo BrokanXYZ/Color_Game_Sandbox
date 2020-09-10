@@ -19,7 +19,7 @@ export default function Game(
         previewColor,
         setPreviewColor,
         isSimulationRunning,
-        colorSpreadStrategy,
+        colorSpreadWeightStrategy,
         colorSpreadMagnitude,
         tickRate,
         colorToolCellProperties,
@@ -32,7 +32,7 @@ export default function Game(
         previewColor: Color,
         setPreviewColor: Dispatch<SetStateAction<Color>>,
         isSimulationRunning: boolean,
-        colorSpreadStrategy: string,
+        colorSpreadWeightStrategy: string,
         colorSpreadMagnitude: number,
         tickRate: number,
         colorToolCellProperties: ColorToolCellProperties,
@@ -66,8 +66,9 @@ export default function Game(
         if(!cell.isColorStatic)
         {
             let neighborColors: Color[] = [];
+            let neighborColorWeights: number[] = [];
 
-            // Get neighborColors
+            // Get neighbor colors and weights
             for(let x=i-1; x<i+2; x++)
             {
                 const isRowOutOfRange: boolean = x < 0 || x >= gameGrid.rows;
@@ -79,7 +80,9 @@ export default function Game(
                         const isThisCell: boolean = x === i && y === j;
                         if(!isColumnOutOfRange && !isThisCell)
                         {
-                            neighborColors.push(gameGrid.cells[x][y].color);
+                            const cell: Cell = gameGrid.cells[x][y];
+                            neighborColors.push(cell.color);
+                            neighborColorWeights.push(cell.getSpreadWeight(colorSpreadWeightStrategy));
                         }
                     }
                 }
@@ -89,21 +92,27 @@ export default function Game(
             const neighborGreenValues: number[] = neighborColors.map(val => val.g);
             const neighborBlueValues: number[] = neighborColors.map(val => val.b);
 
-            const averagedRed: number = neighborRedValues.reduce((acc, cur) => acc + cur) / neighborRedValues.length;
-            const averagedGreen: number = neighborGreenValues.reduce((acc, cur) => acc + cur) / neighborGreenValues.length;
-            const averagedBlue: number = neighborBlueValues.reduce((acc, cur) => acc + cur) / neighborBlueValues.length;
+            const sumOfWeights: number = neighborColorWeights.reduce((prev, cur) => prev + cur);
 
-            const redDiff: number = averagedRed - cell.color.r;
-            const greenDiff: number = averagedGreen - cell.color.g;
-            const blueDiff: number = averagedBlue - cell.color.b;
+            const weightedSumRed: number = neighborRedValues.reduce((prev, cur, index) => prev + (cur * neighborColorWeights[index]), 0);
+            const weightedSumGreen: number = neighborGreenValues.reduce((prev, cur, index) => prev + (cur * neighborColorWeights[index]), 0);
+            const weightedSumBlue: number = neighborBlueValues.reduce((prev, cur, index) => prev + (cur * neighborColorWeights[index]), 0);
             
-            const normalizedRedDiff: number = (redDiff / 255) * colorSpreadMagnitude;
-            const normalizedGreenDiff: number = (greenDiff / 255) * colorSpreadMagnitude;
-            const normalizedBlueDiff: number = (blueDiff / 255) * colorSpreadMagnitude;
+            const weightedAveragedRed: number = sumOfWeights === 0 ? cell.color.r : weightedSumRed / sumOfWeights;
+            const weightedAveragedGreen: number = sumOfWeights === 0 ? cell.color.g : weightedSumGreen / sumOfWeights;
+            const weightedAveragedBlue: number = sumOfWeights === 0 ? cell.color.b : weightedSumBlue / sumOfWeights;
 
-            const deltaRed = cell.color.r + normalizedRedDiff;
-            const deltaGreen = cell.color.g + normalizedGreenDiff;
-            const deltaBlue = cell.color.b + normalizedBlueDiff;
+            const redDiff: number = weightedAveragedRed - cell.color.r;
+            const greenDiff: number = weightedAveragedGreen - cell.color.g;
+            const blueDiff: number = weightedAveragedBlue - cell.color.b;
+            
+            const normalizedRedDiff: number = redDiff / 255 ;
+            const normalizedGreenDiff: number = greenDiff / 255;
+            const normalizedBlueDiff: number = blueDiff / 255;
+
+            const deltaRed = cell.color.r + (normalizedRedDiff * colorSpreadMagnitude);
+            const deltaGreen = cell.color.g + (normalizedGreenDiff * colorSpreadMagnitude);
+            const deltaBlue = cell.color.b + (normalizedBlueDiff * colorSpreadMagnitude);
 
             const newRed = deltaRed > 255 || deltaRed < 0 ? cell.color.r : deltaRed;
             const newGreen = deltaGreen > 255 || deltaGreen < 0 ? cell.color.g : deltaGreen;

@@ -42,8 +42,8 @@ export default function CustomDrawer(
     setPointerActionType,
     previewColor,
     setPreviewColor,
-    colorSpreadStrategy,
-    setColorSpreadStrategy,
+    colorSpreadWeightStrategy,
+    setColorSpreadWeightStrategy,
     colorSpreadMagnitude,
     setColorSpreadMagnitude,
     tickRate,
@@ -63,8 +63,8 @@ export default function CustomDrawer(
     setPointerActionType: Dispatch<SetStateAction<string>>,
     previewColor: Color,
     setPreviewColor: Dispatch<SetStateAction<Color>>,
-    colorSpreadStrategy: string,
-    setColorSpreadStrategy: Dispatch<SetStateAction<string>>,
+    colorSpreadWeightStrategy: string,
+    setColorSpreadWeightStrategy: Dispatch<SetStateAction<string>>,
     colorSpreadMagnitude: number,
     setColorSpreadMagnitude: Dispatch<SetStateAction<number>>,
     tickRate: number,
@@ -114,8 +114,8 @@ export default function CustomDrawer(
       />
       <Divider />
       <GameOptions 
-        colorSpreadStrategy={colorSpreadStrategy}
-        setColorSpreadStrategy={setColorSpreadStrategy}
+        colorSpreadWeightStrategy={colorSpreadWeightStrategy}
+        setColorSpreadWeightStrategy={setColorSpreadWeightStrategy}
         colorSpreadMagnitude={colorSpreadMagnitude}
         setColorSpreadMagnitude={setColorSpreadMagnitude}
         tickRate={tickRate}

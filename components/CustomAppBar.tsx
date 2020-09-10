@@ -50,8 +50,8 @@ export default function CustomAppBar({
     setPointerActionType,
     previewColor,
     setPreviewColor,
-    colorSpreadStrategy,
-    setColorSpreadStrategy,
+    colorSpreadWeightStrategy,
+    setColorSpreadWeightStrategy,
     colorSpreadMagnitude,
     setColorSpreadMagnitude,
     tickRate,
@@ -70,8 +70,8 @@ export default function CustomAppBar({
     setPointerActionType: Dispatch<SetStateAction<string>>,
     previewColor: Color,
     setPreviewColor: Dispatch<SetStateAction<Color>>,
-    colorSpreadStrategy: string,
-    setColorSpreadStrategy: Dispatch<SetStateAction<string>>,
+    colorSpreadWeightStrategy: string,
+    setColorSpreadWeightStrategy: Dispatch<SetStateAction<string>>,
     colorSpreadMagnitude: number,
     setColorSpreadMagnitude: Dispatch<SetStateAction<number>>,
     tickRate: number,
@@ -116,8 +116,8 @@ export default function CustomAppBar({
                 setPointerActionType={setPointerActionType}
                 previewColor={previewColor}
                 setPreviewColor={setPreviewColor}
-                colorSpreadStrategy={colorSpreadStrategy}
-                setColorSpreadStrategy={setColorSpreadStrategy}
+                colorSpreadWeightStrategy={colorSpreadWeightStrategy}
+                setColorSpreadWeightStrategy={setColorSpreadWeightStrategy}
                 colorSpreadMagnitude={colorSpreadMagnitude}
                 setColorSpreadMagnitude={setColorSpreadMagnitude}
                 tickRate={tickRate}
